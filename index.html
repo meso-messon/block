@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="theme-color" content="#080d20">
+<title>NEON BREAKER — FINAL FIX EDITION</title>
+<style>
+:root{--cyan:#65eaff;--pink:#f18bd0;--blue:#168bc5;--violet:#653bd0;--ink:#080d20}
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#f5f5f7;font-family:Arial,"Noto Sans JP",sans-serif}
+body{display:flex;justify-content:center;align-items:stretch}
+#app{width:min(100%,560px);height:100dvh;min-height:540px;padding:12px 14px 10px;background:linear-gradient(180deg,#343b4e 0%,#101629 12%,#080d20 75%,#080d20 100%);display:flex;flex-direction:column;gap:12px;overflow:hidden}
+#hud{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;flex:0 0 auto}
+.stat{height:78px;border:1px solid #385477;border-radius:16px;background:linear-gradient(145deg,#182640,#101b34);display:flex;flex-direction:column;align-items:center;justify-content:center;color:#d7eaff;box-shadow:inset 0 1px 0 #ffffff12}
+.stat span{font-size:clamp(14px,3.8vw,20px);letter-spacing:.4px}
+.stat b{font-size:clamp(25px,5vw,34px);line-height:1.1;margin-top:4px;color:var(--cyan);text-shadow:0 0 12px #55dfff66}
+.stat:nth-child(2) b{color:#e5a4f4}.stat:nth-child(3) b{color:#f4a4c9}
+#arena{position:relative;flex:1;min-height:0;border:1px solid #18243d;border-radius:20px;overflow:hidden;background:#080e22;box-shadow:inset 0 0 35px #0008}
+canvas{display:block;width:100%;height:100%;touch-action:none}
+#overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;padding:20px;background:#070c20c9;backdrop-filter:blur(1.5px)}
+.panel{width:100%;display:flex;align-items:center;flex-direction:column;gap:0}
+#title{font-size:clamp(32px,8vw,44px);font-weight:900;letter-spacing:1px;color:#69eaff;text-shadow:0 0 12px #45dcff66;margin:0 0 22px}
+#subtitle{font-size:clamp(15px,4vw,19px);color:#f1f2ff;margin:0 0 42px}
+#message{font-size:16px;color:#b6c8e8;line-height:1.65;margin:24px 0 0}
+.action{border:1px solid #62eaff;border-radius:18px;background:linear-gradient(110deg,#078cbd,#643bd0);color:#fff;font-size:clamp(19px,5vw,25px);font-weight:800;padding:23px 30px;min-width:250px;box-shadow:0 0 18px #2bc9ff3a,inset 0 1px 0 #ffffff44;cursor:pointer}
+.action:active,.control:active{transform:scale(.98)}
+#buttons{display:flex;justify-content:center;gap:14px;flex:0 0 auto;padding:2px 0 4px}
+.control{border:1px solid #5bdfff;border-radius:19px;background:linear-gradient(110deg,#078cbd,#643bd0);color:#fff;font-size:clamp(15px,4vw,21px);font-weight:800;padding:17px 20px;min-width:43%;box-shadow:0 0 15px #2bc9ff30;cursor:pointer}
+#hint{text-align:center;color:#9aafd0;font-size:12px;flex:0 0 auto;margin-top:-4px}
+@media(max-height:680px){#app{gap:8px;padding:8px 10px} .stat{height:62px}#buttons{gap:8px}.control{padding:12px 14px}#title{margin-bottom:10px}#subtitle{margin-bottom:20px}.action{padding:16px 24px}}
+</style>
+</head>
+<body>
+<div id="app">
+ <div id="hud">
+  <div class="stat"><span>SCORE</span><b id="score">0</b></div>
+  <div class="stat"><span>STAGE</span><b id="stage">1</b></div>
+  <div class="stat"><span>LIFE</span><b id="life">3</b></div>
+ </div>
+ <div id="arena">
+  <canvas id="game"></canvas>
+  <div id="overlay">
+   <div class="panel">
+    <h1 id="title">NEON BREAKER</h1>
+    <p id="subtitle">FINAL FIX EDITION ✦</p>
+    <button class="action" id="mainBtn">▶ GAME START</button>
+    <p id="message">指やマウスでパドルを左右に動かそう！</p>
+   </div>
+  </div>
+ </div>
+ <div id="buttons">
+  <button class="control" id="pauseBtn">Ⅱ PAUSE</button>
+  <button class="control" id="restartBtn">↻ RESTART</button>
+ </div>
+ <div id="hint">WIDE：パドル拡大　 MULTI：ボール追加　 SLOW：ボール減速</div>
+</div>
+<script src="game.js"></script>
+</body>
+</html>
