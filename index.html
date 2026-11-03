@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NEON BREAKER - FINAL FIX EDITION</title>
+<style>
+*{box-sizing:border-box}body{margin:0;min-height:100vh;background:#080d20;color:#eef5ff;font-family:Arial,"Noto Sans JP",sans-serif;display:flex;justify-content:center;padding:18px 10px}
+.wrap{width:min(100%,790px);background:#080e23;border-radius:17px;padding:12px;box-shadow:0 15px 45px #0008}
+.hud{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px}
+.stat{height:64px;border:1px solid #24456e;border-radius:10px;background:#111e3a;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.stat span{font-size:12px;color:#c8ddff;margin-bottom:6px}.stat b{font-size:20px;color:#52e8ff;line-height:1}.stat:nth-child(2) b{color:#df9aff}.stat:nth-child(3) b{color:#ff8fb9}
+.board{position:relative;width:100%;aspect-ratio:780/930;border:1px solid #132342;border-radius:12px;overflow:hidden;background:#070e23}
+canvas{display:block;width:100%;height:100%;touch-action:none}
+.overlay{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;background:rgba(4,10,27,.88);text-align:center}
+.overlay.hidden{display:none}
+h1{font-size:30px;color:#59eaff;margin:0 0 10px;font-weight:800;letter-spacing:.3px}
+.sub{font-size:14px;color:#f1f5ff;margin-bottom:22px}
+button{border:1px solid #3bdcff;border-radius:11px;padding:13px 19px;background:linear-gradient(110deg,#098ec0,#4240cb);color:white;font-size:16px;font-weight:bold;cursor:pointer;box-shadow:0 0 18px #236bdb55}
+.hint{font-size:12px;color:#b7c9e8;margin-top:18px}
+.controls{display:flex;gap:10px;margin-top:10px}.controls button{flex:1;font-size:13px;padding:10px;background:#142447;border-color:#294d7c;box-shadow:none}
+@media(max-width:500px){body{padding:6px}.wrap{padding:8px}.stat{height:54px}.stat b{font-size:18px}h1{font-size:25px}}
+</style>
+</head>
+<body>
+<main class="wrap">
+ <section class="hud">
+  <div class="stat"><span>SCORE</span><b id="score">0</b></div>
+  <div class="stat"><span>STAGE</span><b id="stage">1</b></div>
+  <div class="stat"><span>LIFE</span><b id="life">3</b></div>
+ </section>
+ <section class="board">
+  <canvas id="game" width="780" height="930"></canvas>
+  <div class="overlay" id="start">
+   <h1>NEON BREAKER</h1><div class="sub">FINAL FIX EDITION ✦</div>
+   <button id="startBtn">▶ GAME START</button>
+   <div class="hint">指やマウスでパドルを左右に動かそう！</div>
+  </div>
+  <div class="overlay hidden" id="count"><h1 id="countNum" style="font-size:76px">3</h1><div class="sub">STAGE CLEAR</div></div>
+  <div class="overlay hidden" id="pause"><h1>PAUSE</h1><button id="resume">▶ RESUME</button></div>
+ </section>
+ <div class="controls"><button id="pauseBtn">Ⅱ PAUSE</button><button id="restartBtn">↻ RESTART</button></div>
+</main>
+<script src="game.js"></script>
+</body></html>
