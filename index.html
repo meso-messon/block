@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>NEON BREAKER</title>
+  <style>
+    :root { color-scheme: dark; }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; min-height: 100vh; display: flex; justify-content: center; align-items: center;
+      padding: 18px; background: radial-gradient(ellipse at 50% 15%, #17275a 0%, #090f27 48%, #050817 100%);
+      color: #eef6ff; font-family: Inter, "Segoe UI", sans-serif;
+    }
+    .shell { width: min(100%, 430px); }
+    .hud { display: grid; grid-template-columns: repeat(3, 1fr); gap: 9px; margin-bottom: 12px; }
+    .stat {
+      border: 1px solid rgba(102, 222, 255, .32); border-radius: 13px; padding: 9px 8px 8px;
+      background: linear-gradient(145deg, rgba(23,43,91,.92), rgba(10,18,47,.94));
+      box-shadow: 0 0 18px rgba(20,177,255,.09), inset 0 0 16px rgba(70,120,255,.06);
+      text-align: center;
+    }
+    .stat small { display:block; color:#91b9e8; font-size:10px; font-weight:800; letter-spacing:2px; }
+    .stat strong { display:block; margin-top:2px; color:#fff; font-size:24px; line-height:1.15; text-shadow:0 0 12px rgba(69,221,255,.5); }
+    .game-frame {
+      position: relative; overflow:hidden; border:1px solid rgba(82,220,255,.55); border-radius:18px;
+      background: #070d22; box-shadow: 0 0 30px rgba(0,190,255,.16), inset 0 0 25px rgba(0,0,0,.8);
+    }
+    canvas { display:block; width:100%; height:auto; touch-action:none; }
+    .overlay {
+      position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center;
+      padding:24px; text-align:center; background:linear-gradient(180deg,rgba(4,9,28,.48),rgba(4,9,28,.84));
+    }
+    .overlay.hidden { display:none; }
+    .logo { margin:0 0 7px; font-size:clamp(29px, 8vw, 43px); line-height:1; font-weight:1000; letter-spacing:2px;
+      color:#eafaff; text-shadow:0 0 8px #22dfff, 0 0 24px #176cff, 0 0 42px #a12bff; }
+    .sub { color:#9ebde8; letter-spacing:4px; font-size:10px; font-weight:800; margin:8px 0 25px; }
+    button {
+      border:0; cursor:pointer; color:#fff; font-weight:900; letter-spacing:1px; border-radius:11px;
+      background:linear-gradient(100deg,#08c9f5,#386cff 58%,#9a45ff); padding:13px 25px;
+      box-shadow:0 0 20px rgba(32,174,255,.36); transition:transform .12s, filter .12s;
+    }
+    button:hover { filter:brightness(1.13); transform:translateY(-1px); }
+    button:active { transform:translateY(1px) scale(.99); }
+    .hint { color:#9eb0d2; font-size:11px; line-height:1.7; margin-top:17px; }
+    .controls { display:flex; gap:10px; margin-top:12px; }
+    .controls button { flex:1; padding:11px 10px; background:linear-gradient(120deg,#182b57,#172044); border:1px solid #31568a; box-shadow:none; font-size:11px; }
+    .controls button.primary { background:linear-gradient(100deg,#0b9cc9,#4659c8); border:0; }
+    .foot { text-align:center; color:#7186b0; font-size:10px; letter-spacing:1px; margin-top:12px; }
+    @media (max-height: 760px) { body { align-items:flex-start; } }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <section class="hud" aria-label="game status">
+      <div class="stat"><small>SCORE</small><strong id="score">000000</strong></div>
+      <div class="stat"><small>STAGE</small><strong id="stage">1 / 5</strong></div>
+      <div class="stat"><small>LIFE</small><strong id="life">3</strong></div>
+    </section>
+    <section class="game-frame">
+      <canvas id="game" width="360" height="540" aria-label="Neon Breaker game"></canvas>
+      <div class="overlay" id="startScreen">
+        <h1 class="logo">NEON<br>BREAKER</h1>
+        <div class="sub">ARCADE BRICK BREAKER</div>
+        <button id="startBtn">GAME START</button>
+        <div class="hint">マウス・タッチでパドルを操作<br>ボールを落とさずブロックを壊そう！</div>
+      </div>
+      <div class="overlay hidden" id="countScreen">
+        <div class="sub">STAGE CLEAR</div>
+        <div id="countNum" style="font-size:76px;font-weight:1000;color:#fff;text-shadow:0 0 18px #20dfff,0 0 38px #744cff">3</div>
+        <div class="hint">NEXT STAGE</div>
+      </div>
+      <div class="overlay hidden" id="pauseScreen">
+        <h2 class="logo" style="font-size:34px">PAUSED</h2>
+        <button id="resumeBtn">RESUME</button>
+      </div>
+    </section>
+    <div class="controls">
+      <button id="pauseBtn">Ⅱ PAUSE</button>
+      <button id="restartBtn" class="primary">↻ RESTART</button>
+    </div>
+    <div class="foot">MOVE WITH MOUSE / TOUCH / ← → KEYS</div>
+  </main>
+  <script src="game.js"></script>
+</body>
+</html>
